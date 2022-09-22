@@ -4,7 +4,7 @@ from django.contrib.gis.geos import Point
 
 class Place(models.Model):
     title = models.CharField(max_length=200)
-    # imgs = models.ManyToManyField("file_manager.ImageFile", blank=True, related_name="related_place")
+    imgs = models.ManyToManyField("file_manager.ImageFile", blank=True, related_name="related_place")
     description_short = models.CharField(max_length=200)
     description_long = models.TextField(max_length=1000, blank=True)
     coordinates = models.PointField(srid=4326, geography=True, blank=True, null=True)
