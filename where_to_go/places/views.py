@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader
+from django.urls import reverse
 
 from places.models import Place
 
@@ -15,7 +16,7 @@ def get_details(id):
         return None
     data = {
         "title": place.title,
-        "imgs": [img.get_absolute_image_url for img in place.imagefile_set.all()],
+        "imgs": [img.image.url for img in place.imagefile_set.all()],
         "description_short": place.description_short,
         "description_long": place.description_long,
         "coordinates": {"lng": place.lng, "lat": place.lat},
@@ -34,7 +35,7 @@ def index(request):
                 "properties": {
                     "title": obj.title,
                     "placeId": obj.id,
-                    "detailsUrl": "./static/places/moscow_legends.json",
+                    "detailsUrl": reverse("places", args=[obj.id]),
                 },
             }
             for obj in Place.objects.all()
