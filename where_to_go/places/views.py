@@ -2,6 +2,24 @@ from django.http import HttpResponse
 from django.template import loader
 import json
 
+from places.models import Place
+
+
+# TODO provide details
+def get_details(id):
+    place = Place.objects.get(id=id)
+    data = {
+        "title": place.title,
+        "imgs": place.imagefile_set.all(),
+        "description_short": place.description_short,
+        "description_long": place.description_long,
+        "coordinates": {
+            "lng": place.lng,
+            "lat": place.lat
+        }
+    }
+
+
 
 def index(request):
     template = loader.get_template("index.html")
@@ -12,26 +30,14 @@ def index(request):
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [37.62, 55.793676]
+                    "coordinates": obj.coordinates.coords
                 },
                 "properties": {
-                    "title": "«Легенды Москвы",
-                    "placeId": "moscow_legends",
+                    "title": obj.title,
+                    "placeId": obj.id,
                     "detailsUrl": "./static/places/moscow_legends.json"
                 }
-            },
-            {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [37.64, 55.753676]
-                },
-                "properties": {
-                    "title": "Крыши24.рф",
-                    "placeId": "roofs24",
-                    "detailsUrl": "./static/places/roofs24.json"
-                }
-            }
+            } for obj in Place.objects.all()
         ]
     }
     context = {"json_data": json.dumps(data)}
