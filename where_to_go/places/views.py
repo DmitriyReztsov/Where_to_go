@@ -1,22 +1,26 @@
 import json
 
-from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader
 
 from places.models import Place
 
 
-# TODO provide details
 def get_details(id):
-    place = Place.objects.get(id=id)
+    try:
+        place = Place.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return None
     data = {
         "title": place.title,
-        "imgs": place.imagefile_set.all(),
+        "imgs": [img.get_absolute_image_url for img in place.imagefile_set.all()],
         "description_short": place.description_short,
         "description_long": place.description_long,
         "coordinates": {"lng": place.lng, "lat": place.lat},
     }
+    return data
 
 
 def index(request):
@@ -42,4 +46,9 @@ def index(request):
 
 
 def places(request, id):
-    return HttpResponse(get_object_or_404(Place, id=id).title)
+    data = get_details(id)
+    if data:
+        return JsonResponse(
+            data, json_dumps_params={"ensure_ascii": False, "indent": 4}
+        )
+    return HttpResponseNotFound("Not found")
