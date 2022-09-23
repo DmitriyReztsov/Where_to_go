@@ -6,14 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('file_manager', '0001_initial'),
-        ('places', '0002_auto_20220921_1006'),
+        ("file_manager", "0001_initial"),
+        ("places", "0002_auto_20220921_1006"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='place',
-            name='imgs',
-            field=models.ManyToManyField(blank=True, related_name='related_place', to='file_manager.ImageFile'),
+            model_name="place",
+            name="imgs",
+            field=models.ManyToManyField(
+                blank=True, related_name="related_place", to="file_manager.ImageFile"
+            ),
         ),
     ]

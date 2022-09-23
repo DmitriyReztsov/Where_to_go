@@ -7,17 +7,19 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('places', '0005_rename_coordinates_2_place_geom'),
+        ("places", "0005_rename_coordinates_2_place_geom"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='place',
-            name='geom',
+            model_name="place",
+            name="geom",
         ),
         migrations.AddField(
-            model_name='place',
-            name='coordinates',
-            field=django.contrib.gis.db.models.fields.PointField(blank=True, geography=True, null=True, srid=4326),
+            model_name="place",
+            name="coordinates",
+            field=django.contrib.gis.db.models.fields.PointField(
+                blank=True, geography=True, null=True, srid=4326
+            ),
         ),
     ]

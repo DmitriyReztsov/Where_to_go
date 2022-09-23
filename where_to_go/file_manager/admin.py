@@ -4,8 +4,14 @@ from .models import ImageFile
 
 
 class PlacesAdmin(admin.ModelAdmin):
-    list_display = ("id", "image",)
-    list_filter = ("id", "image",)
+    list_display = (
+        "id",
+        "image",
+    )
+    list_filter = (
+        "id",
+        "image",
+    )
     search_fields = ["image"]
 
 

@@ -1,6 +1,8 @@
-from django.http import HttpResponse
-from django.template import loader
 import json
+
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.template import loader
 
 from places.models import Place
 
@@ -13,12 +15,8 @@ def get_details(id):
         "imgs": place.imagefile_set.all(),
         "description_short": place.description_short,
         "description_long": place.description_long,
-        "coordinates": {
-            "lng": place.lng,
-            "lat": place.lat
-        }
+        "coordinates": {"lng": place.lng, "lat": place.lat},
     }
-
 
 
 def index(request):
@@ -28,18 +26,20 @@ def index(request):
         "features": [
             {
                 "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": obj.coordinates.coords
-                },
+                "geometry": {"type": "Point", "coordinates": obj.coordinates.coords},
                 "properties": {
                     "title": obj.title,
                     "placeId": obj.id,
-                    "detailsUrl": "./static/places/moscow_legends.json"
-                }
-            } for obj in Place.objects.all()
-        ]
+                    "detailsUrl": "./static/places/moscow_legends.json",
+                },
+            }
+            for obj in Place.objects.all()
+        ],
     }
     context = {"json_data": json.dumps(data)}
     rendered_page = template.render(context, request)
     return HttpResponse(rendered_page)
+
+
+def places(request, id):
+    return HttpResponse(get_object_or_404(Place, id=id).title)

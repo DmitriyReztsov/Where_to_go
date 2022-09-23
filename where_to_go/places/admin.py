@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.gis.admin import OSMGeoAdmin
 
-from .models import Place
 from file_manager.models import ImageFile
+
+from .models import Place
 
 
 class ImageInline(admin.TabularInline):
