@@ -8,3 +8,7 @@ class ImageFile(models.Model):
     place = models.ForeignKey(
         "places.Place", on_delete=models.SET_NULL, blank=True, null=True
     )
+    position = models.IntegerField(default=1)
+
+    class Meta:
+        ordering = ["position", "created_on"]

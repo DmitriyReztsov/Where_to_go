@@ -8,6 +8,7 @@ from .models import Place
 
 class ImageInline(admin.TabularInline):
     model = ImageFile
+    extra = 1
 
 
 class PlacesAdmin(OSMGeoAdmin):
