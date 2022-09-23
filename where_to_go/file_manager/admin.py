@@ -1,13 +1,15 @@
+from adminsortable2.admin import SortableAdminMixin
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from .models import ImageFile
 
 
-class PlacesAdmin(admin.ModelAdmin):
+class ImagesAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = (
         "id",
         "image",
+        "position",
     )
     list_filter = (
         "id",
@@ -26,4 +28,4 @@ class PlacesAdmin(admin.ModelAdmin):
         )
 
 
-admin.site.register(ImageFile, PlacesAdmin)
+admin.site.register(ImageFile, ImagesAdmin)

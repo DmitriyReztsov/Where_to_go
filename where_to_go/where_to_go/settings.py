@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.gis",
     "places.apps.PlacesConfig",
     "file_manager.apps.FileManagerConfig",
+    "adminsortable2",
 ]
 
 MIDDLEWARE = [
