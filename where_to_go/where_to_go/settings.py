@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "places.apps.PlacesConfig",
     "file_manager.apps.FileManagerConfig",
     "adminsortable2",
+    "tinymce",
 ]
 
 MIDDLEWARE = [
