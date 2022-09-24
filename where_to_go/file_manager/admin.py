@@ -1,4 +1,5 @@
 from adminsortable2.admin import SortableAdminMixin
+from django.conf import settings
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
@@ -28,4 +29,5 @@ class ImagesAdmin(SortableAdminMixin, admin.ModelAdmin):
         )
 
 
-admin.site.register(ImageFile, ImagesAdmin)
+if settings.DEBUG:
+    admin.site.register(ImageFile, ImagesAdmin)
