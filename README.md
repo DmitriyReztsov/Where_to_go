@@ -1,6 +1,6 @@
 # Where_to_go Devman study project
 Where to go
-web: TODO
+web: http://dmitriyreztsov.pythonanywhere.com/
 
 # Where_to_go
 
